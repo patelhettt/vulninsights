@@ -12,11 +12,19 @@ interface MediumPost {
   description: string;
   author: string;
   categories: string[];
+  guid: string;
 }
 
 function Home() {
   const [latestPosts, setLatestPosts] = useState<MediumPost[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const createSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  };
 
   useEffect(() => {
     const fetchLatestPosts = async () => {
@@ -39,7 +47,8 @@ function Home() {
               pubDate: item.pubDate,
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
               author: 'Kaif',
-              categories: item.categories || []
+              categories: item.categories || [],
+              guid: item.guid
             });
           });
         }
@@ -53,7 +62,8 @@ function Home() {
               pubDate: item.pubDate,
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
               author: 'Het',
-              categories: item.categories || []
+              categories: item.categories || [],
+              guid: item.guid
             });
           });
         }
@@ -71,7 +81,8 @@ function Home() {
             pubDate: new Date().toISOString(),
             description: "Exploring cutting-edge methodologies for ethical hacking and vulnerability assessment in modern enterprise environments...",
             author: "Het",
-            categories: ["Penetration Testing", "Security"]
+            categories: ["Penetration Testing", "Security"],
+            guid: "advanced-penetration-testing-techniques"
           },
           {
             title: "Zero-Day Vulnerabilities: Detection & Response",
@@ -79,7 +90,8 @@ function Home() {
             pubDate: new Date().toISOString(),
             description: "A comprehensive guide to identifying, analyzing, and mitigating zero-day exploits before they compromise your infrastructure...",
             author: "Kaif",
-            categories: ["Zero-Day", "Incident Response"]
+            categories: ["Zero-Day", "Incident Response"],
+            guid: "zero-day-vulnerabilities-detection-response"
           }
         ]);
       } finally {
@@ -231,15 +243,18 @@ function Home() {
                         Medium Article
                       </span>
                       
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 group/btn"
-                        onClick={() => window.open(post.link, '_blank')}
-                      >
-                        Read More
-                        <ExternalLink className="ml-2 h-3 w-3 group-hover/btn:translate-x-0.5 transition-transform" />
-                      </Button>
+                      <div className="flex gap-2">
+                        <Link to={`/blogs/${createSlug(post.title)}`}>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 group/btn"
+                          >
+                            Read More
+                            <ArrowRight className="ml-2 h-3 w-3 group-hover/btn:translate-x-0.5 transition-transform" />
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

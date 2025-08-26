@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ExternalLink, Search, Calendar, User, Filter } from "lucide-react";
+import { ExternalLink, Search, Calendar, User, Filter, BookOpen } from "lucide-react";
 
 interface MediumPost {
   title: string;
@@ -14,6 +15,7 @@ interface MediumPost {
   author: string;
   categories: string[];
   thumbnail?: string;
+  guid: string;
 }
 
 function Blogs() {
@@ -22,6 +24,13 @@ function Blogs() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("all");
+
+  const createSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  };
 
   useEffect(() => {
     const fetchAllPosts = async () => {
@@ -45,7 +54,8 @@ function Blogs() {
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
               author: 'Kaif',
               categories: item.categories || [],
-              thumbnail: item.thumbnail
+              thumbnail: item.thumbnail,
+              guid: item.guid
             });
           });
         }
@@ -60,7 +70,8 @@ function Blogs() {
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
               author: 'Het',
               categories: item.categories || [],
-              thumbnail: item.thumbnail
+              thumbnail: item.thumbnail,
+              guid: item.guid
             });
           });
         }
@@ -79,7 +90,8 @@ function Blogs() {
             pubDate: new Date().toISOString(),
             description: "Exploring cutting-edge methodologies for ethical hacking and vulnerability assessment in modern enterprise environments. This comprehensive guide covers advanced techniques used by security professionals...",
             author: "Het",
-            categories: ["Penetration Testing", "Security", "Ethical Hacking"]
+            categories: ["Penetration Testing", "Security", "Ethical Hacking"],
+            guid: "advanced-penetration-testing-techniques"
           },
           {
             title: "Zero-Day Vulnerabilities: Detection & Response",
@@ -87,7 +99,8 @@ function Blogs() {
             pubDate: new Date(Date.now() - 86400000).toISOString(),
             description: "A comprehensive guide to identifying, analyzing, and mitigating zero-day exploits before they compromise your infrastructure. Learn about the latest detection methods and response strategies...",
             author: "Kaif",
-            categories: ["Zero-Day", "Incident Response", "Threat Intelligence"]
+            categories: ["Zero-Day", "Incident Response", "Threat Intelligence"],
+            guid: "zero-day-vulnerabilities-detection-response"
           },
           {
             title: "Web Application Security Best Practices",
@@ -95,7 +108,8 @@ function Blogs() {
             pubDate: new Date(Date.now() - 172800000).toISOString(),
             description: "Essential security practices for modern web applications, covering OWASP Top 10, secure coding practices, and implementation strategies for robust application security...",
             author: "Het",
-            categories: ["Web Security", "OWASP", "Secure Coding"]
+            categories: ["Web Security", "OWASP", "Secure Coding"],
+            guid: "web-application-security-best-practices"
           },
           {
             title: "Network Security Monitoring Strategies",
@@ -103,7 +117,8 @@ function Blogs() {
             pubDate: new Date(Date.now() - 259200000).toISOString(),
             description: "Implementing effective network security monitoring to detect and respond to threats in real-time. Covers tools, techniques, and best practices for network defense...",
             author: "Kaif",
-            categories: ["Network Security", "Monitoring", "SOC"]
+            categories: ["Network Security", "Monitoring", "SOC"],
+            guid: "network-security-monitoring-strategies"
           }
         ];
         setPosts(placeholderPosts);
@@ -261,16 +276,30 @@ function Blogs() {
                     )}
                   </div>
 
-                  {/* Read More Button */}
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="w-full text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 group/btn"
-                    onClick={() => window.open(post.link, '_blank')}
-                  >
-                    Read on Medium
-                    <ExternalLink className="ml-2 h-3 w-3 group-hover/btn:translate-x-0.5 transition-transform" />
-                  </Button>
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <Link 
+                      to={`/blogs/${createSlug(post.title)}`}
+                      className="flex-1"
+                    >
+                      <Button 
+                        variant="default" 
+                        size="sm" 
+                        className="w-full bg-cyan-600 hover:bg-cyan-700 text-white group/btn"
+                      >
+                        <BookOpen className="mr-2 h-3 w-3" />
+                        Read Article
+                      </Button>
+                    </Link>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 group/btn"
+                      onClick={() => window.open(post.link, '_blank')}
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
