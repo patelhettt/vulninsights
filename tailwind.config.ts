@@ -296,7 +296,6 @@ const config: Config = {
       strategy: 'class',
     }),
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
     require('tailwindcss-animate'),
     
     // Custom plugins can be added here

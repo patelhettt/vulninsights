@@ -139,11 +139,11 @@ function BlogReader() {
   const processContent = (content: string) => {
     // Clean up HTML content and make it readable
     let processedContent = content
-      .replace(/<script[^>]*>.*?<\\/script>/gi, '')
-      .replace(/<style[^>]*>.*?<\\/style>/gi, '')
-      .replace(/<iframe[^>]*>.*?<\\/iframe>/gi, '')
+      .replace(/<script[^>]*>.*?<\/script>/gi, '')
+      .replace(/<style[^>]*>.*?<\/style>/gi, '')
+      .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
       .replace(/<figure[^>]*>/gi, '<div class="figure">')
-      .replace(/<\\/figure>/gi, '</div>')
+      .replace(/<\/figure>/gi, '</div>')
       .replace(/<img([^>]*)>/gi, '<img$1 class="blog-image" />')
       .replace(/<h1([^>]*)>/gi, '<h1$1 class="blog-h1">')
       .replace(/<h2([^>]*)>/gi, '<h2$1 class="blog-h2">')
@@ -232,13 +232,14 @@ function BlogReader() {
             <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight">
               {post.title}
             </h1>
-
-            {/* Description */}
+{/* 
+Hey Cursor, No need to show the description
+            Description
             {post.description && (
               <p className="text-lg text-slate-300 leading-relaxed">
                 {post.description}
               </p>
-            )}
+            )} */}
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2">

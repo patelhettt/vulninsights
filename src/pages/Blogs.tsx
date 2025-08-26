@@ -47,6 +47,15 @@ function Blogs() {
         // Add Kaif's posts
         if (kaifData.items) {
           kaifData.items.forEach((item: any) => {
+            // Extract image from content if thumbnail is not available
+            let imageUrl = item.thumbnail;
+            if (!imageUrl && item.content) {
+              const imgMatch = item.content.match(/<img[^>]+src="([^"]+)"/);
+              if (imgMatch) {
+                imageUrl = imgMatch[1];
+              }
+            }
+            
             allPosts.push({
               title: item.title,
               link: item.link,
@@ -54,7 +63,7 @@ function Blogs() {
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
               author: 'Kaif',
               categories: item.categories || [],
-              thumbnail: item.thumbnail,
+              thumbnail: imageUrl,
               guid: item.guid
             });
           });
@@ -63,14 +72,26 @@ function Blogs() {
         // Add Het's posts
         if (hetData.items) {
           hetData.items.forEach((item: any) => {
+            // Extract image from content if thumbnail is not available
+            let imageUrl = item.thumbnail;
+            if (!imageUrl && item.content) {
+              const imgMatch = item.content.match(/<img[^>]+src="([^"]+)"/);
+              if (imgMatch) {
+                imageUrl = imgMatch[1];
+              }
+            }
+            
+            // Debug: Log the original author from RSS feed
+            console.log('Original author from RSS:', item.author);
+            
             allPosts.push({
               title: item.title,
               link: item.link,
               pubDate: item.pubDate,
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 200) + '...',
-              author: 'Het',
+              author: 'Het', // Explicitly set to 'Het' for Het's RSS feed
               categories: item.categories || [],
-              thumbnail: item.thumbnail,
+              thumbnail: imageUrl,
               guid: item.guid
             });
           });
@@ -78,6 +99,7 @@ function Blogs() {
         
         // Sort by date (newest first)
         allPosts.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+        
         setPosts(allPosts);
         setFilteredPosts(allPosts);
       } catch (error) {
@@ -91,6 +113,7 @@ function Blogs() {
             description: "Exploring cutting-edge methodologies for ethical hacking and vulnerability assessment in modern enterprise environments. This comprehensive guide covers advanced techniques used by security professionals...",
             author: "Het",
             categories: ["Penetration Testing", "Security", "Ethical Hacking"],
+            thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=400&fit=crop",
             guid: "advanced-penetration-testing-techniques"
           },
           {
@@ -100,6 +123,7 @@ function Blogs() {
             description: "A comprehensive guide to identifying, analyzing, and mitigating zero-day exploits before they compromise your infrastructure. Learn about the latest detection methods and response strategies...",
             author: "Kaif",
             categories: ["Zero-Day", "Incident Response", "Threat Intelligence"],
+            thumbnail: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=400&fit=crop",
             guid: "zero-day-vulnerabilities-detection-response"
           },
           {
@@ -109,6 +133,7 @@ function Blogs() {
             description: "Essential security practices for modern web applications, covering OWASP Top 10, secure coding practices, and implementation strategies for robust application security...",
             author: "Het",
             categories: ["Web Security", "OWASP", "Secure Coding"],
+            thumbnail: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
             guid: "web-application-security-best-practices"
           },
           {
@@ -118,6 +143,7 @@ function Blogs() {
             description: "Implementing effective network security monitoring to detect and respond to threats in real-time. Covers tools, techniques, and best practices for network defense...",
             author: "Kaif",
             categories: ["Network Security", "Monitoring", "SOC"],
+            thumbnail: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop",
             guid: "network-security-monitoring-strategies"
           }
         ];
@@ -165,7 +191,7 @@ function Blogs() {
 
   return (
     <div className="min-h-screen py-16">
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-white mb-4">
@@ -215,7 +241,9 @@ function Blogs() {
         {loading ? (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <Card key={i} className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 animate-pulse">
+              <Card key={i} className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 animate-pulse overflow-hidden">
+                {/* Image skeleton */}
+                <div className="h-48 bg-slate-700"></div>
                 <CardHeader className="space-y-4">
                   <div className="h-4 bg-slate-700 rounded w-1/4"></div>
                   <div className="h-6 bg-slate-700 rounded w-3/4"></div>
@@ -235,10 +263,26 @@ function Blogs() {
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post, index) => (
-              <Card key={index} className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group h-full flex flex-col">
+              <Card key={index} className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group h-full flex flex-col overflow-hidden">
+                {/* Blog Image */}
+                {post.thumbnail && (
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={post.thumbnail} 
+                      alt={post.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                )}
+                
                 <CardHeader className="space-y-4 flex-1">
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20">
+                    <Badge variant="secondary" className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 font-semibold">
                       <User className="h-3 w-3 mr-1" />
                       {post.author}
                     </Badge>

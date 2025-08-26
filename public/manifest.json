@@ -1,7 +1,7 @@
 {
-  "name": "Altan",
-  "short_name": "Altan",
-  "description": "Altan Application",
+  "name": "VulnInsights",
+  "short_name": "VulnInsights",
+  "description": "Cybersecurity Research Platform",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

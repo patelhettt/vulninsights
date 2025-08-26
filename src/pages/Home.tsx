@@ -61,7 +61,7 @@ function Home() {
               link: item.link,
               pubDate: item.pubDate,
               description: item.description?.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
-              author: 'Het',
+              author: 'Het', // Explicitly set to 'Het' for Het's RSS feed
               categories: item.categories || [],
               guid: item.guid
             });
@@ -166,7 +166,7 @@ function Home() {
                   </Button>
                 </Link>
                 <Link to="/about">
-                  <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-700/50">
+                  <Button variant="outline" className="bg-cyan-600 hover:bg-cyan-700 text-white">
                     About the Team
                   </Button>
                 </Link>
