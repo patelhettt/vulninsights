@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Calendar, User, ExternalLink, Clock, Share2 } from "lucide-react";
+import { Helmet } from 'react-helmet-async';
 
 interface MediumPost {
   title: string;
@@ -196,6 +197,42 @@ function BlogReader() {
 
   return (
     <div className="min-h-screen py-16">
+      {post && (
+        <Helmet>
+          <title>{post.title} | VulnInsights</title>
+          <meta name="description" content={post.description.substring(0, 160)} />
+          <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={post.description.substring(0, 160)} />
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={`https://vulninsights.com/blogs/${createSlug(post.title)}`} />
+          <meta name="twitter:title" content={post.title} />
+          <meta name="twitter:description" content={post.description.substring(0, 160)} />
+          <meta name="article:author" content={post.author} />
+          <meta name="article:published_time" content={post.pubDate} />
+          <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "${post.title}",
+            "description": "${post.description.substring(0, 160)}",
+            "author": {
+              "@type": "Person",
+              "name": "${post.author}"
+            },
+            "datePublished": "${post.pubDate}",
+            "publisher": {
+              "@type": "Organization",
+              "name": "VulnInsights",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://vulninsights.com/logo.png"
+              }
+            }
+          }
+          </script>
+        </Helmet>
+      )}
+      
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         {/* Back Button */}
         <div className="mb-8">
