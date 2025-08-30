@@ -183,7 +183,7 @@ function BlogReader() {
           <meta property="og:title" content={post.title} />
           <meta property="og:description" content={post.description.substring(0, 160)} />
           <meta property="og:type" content="article" />
-          <meta property="og:url" content={`https://vulninsights.com/blogs/${createSlug(post.title)}`} />
+          <meta property="og:url" content={`https://vulninsights.codes/blogs/${createSlug(post.title)}`} />
           <meta name="twitter:title" content={post.title} />
           <meta name="twitter:description" content={post.description.substring(0, 160)} />
           <meta name="article:author" content={post.author} />
@@ -204,7 +204,7 @@ function BlogReader() {
                 "name": "VulnInsights",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://vulninsights.com/logo.png"
+                  "url": "https://vulninsights.codes/logo.png"
                 }
               }
             })}
