@@ -5,6 +5,7 @@ import Blogs from "./pages/Blogs";
 import BlogReader from "./pages/BlogReader";
 import About from "./pages/About";
 import Tools from "./pages/Tools";
+import Sitemap from "./pages/Sitemap"; // Add this import
 import NotFound from "./pages/NotFound";
 
 const routes = [
@@ -37,6 +38,10 @@ const routes = [
         element: <NotFound />,
       },
     ],
+  },
+  {
+    path: "/sitemap.xml",
+    element: <Sitemap />,
   },
 ];
 
