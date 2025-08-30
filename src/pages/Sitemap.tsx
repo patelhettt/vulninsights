@@ -33,8 +33,21 @@ export default function Sitemap() {
     // Set the content type to XML
     document.contentType = 'application/xml';
     
-    // Write the sitemap content
-    document.write(sitemap);
+    // Clear any existing content
+    document.body.innerHTML = '';
+    
+    // Create a text node with the sitemap content
+    const textNode = document.createTextNode(sitemap);
+    document.body.appendChild(textNode);
+    
+    // Set the document title
+    document.title = 'Sitemap';
+    
+    // Add XML content type meta tag
+    const meta = document.createElement('meta');
+    meta.setAttribute('http-equiv', 'Content-Type');
+    meta.setAttribute('content', 'application/xml; charset=UTF-8');
+    document.head.appendChild(meta);
   }, []);
 
   return null;

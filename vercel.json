@@ -22,20 +22,11 @@
       ]
     },
     {
-      "source": "/sitemap.xml",
+      "source": "/api/sitemap",
       "headers": [
         {
           "key": "Content-Type",
           "value": "application/xml"
-        }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain"
         }
       ]
     }
@@ -43,18 +34,7 @@
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "/sitemap.xml"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/robots.txt"
+      "destination": "/api/sitemap"
     }
-  ],
-  "functions": {
-    "public/sitemap.xml": {
-      "headers": {
-        "Content-Type": "application/xml"
-      }
-    }
-  }
+  ]
 }
