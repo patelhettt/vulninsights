@@ -312,6 +312,99 @@ function About() {
           )}
         </div>
 
+        {/* TryHackMe Badges Section */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">
+            TryHackMe Achievements
+          </h2>
+          <div className="grid gap-8 md:grid-cols-2">
+            {/* Het's THM Badge */}
+            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 hover:border-cyan-400 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.08)]">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl text-white flex items-center gap-2">
+                  <Target className="h-5 w-5 text-cyan-400" />
+                  Het Patel
+                </CardTitle>
+                <CardDescription className="text-slate-300">
+                  TryHackMe Profile & Achievements
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="w-full max-w-xs">
+                    <iframe
+                      src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1265676"
+                      style={{
+                        border: "none",
+                        width: "100%",
+                        height: "80px",
+                        borderRadius: "8px",
+                        backgroundColor: "transparent",
+                      }}
+                      title="Het Patel's TryHackMe Badge"
+                      className="rounded-lg"
+                      frameBorder="0"
+                      scrolling="no"
+                    />
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-cyan-400 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-300 transition-all duration-300"
+                    onClick={() => window.open("https://tryhackme.com/p/hettt", "_blank")}
+                  >
+                    <Target className="mr-2 h-3 w-3" />
+                    View Full Profile
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Kaif's THM Badge */}
+            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 hover:border-cyan-400 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.08)]">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl text-white flex items-center gap-2">
+                  <Target className="h-5 w-5 text-cyan-400" />
+                  Shah Kaif
+                </CardTitle>
+                <CardDescription className="text-slate-300">
+                  TryHackMe Profile & Achievements
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="w-full max-w-xs">
+                    <iframe
+                      src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=2704774"
+                      style={{
+                        border: "none",
+                        width: "100%",
+                        height: "80px",
+                        borderRadius: "8px",
+                        backgroundColor: "transparent",
+                      }}
+                      title="Shah Kaif's TryHackMe Badge"
+                      className="rounded-lg"
+                      frameBorder="0"
+                      scrolling="no"
+                    />
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-cyan-400 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-300 transition-all duration-300"
+                    onClick={() =>
+                      window.open("https://tryhackme.com/p/SKaif009", "_blank")
+                    }
+                  >
+                    <Target className="mr-2 h-3 w-3" />
+                    View Full Profile
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
         {/* Values Section */}
         <div className="mb-20">

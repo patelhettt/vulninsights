@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
 import BlogReader from "./pages/BlogReader";
 import About from "./pages/About";
+import Tools from "./pages/Tools";
 import NotFound from "./pages/NotFound";
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "tools",
+        element: <Tools />,
       },
       {
         path: "*",
