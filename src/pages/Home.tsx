@@ -32,12 +32,12 @@ function Home() {
         // Fetch latest posts from both authors
         const kaifResponse = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@SKaif009');
         const hetResponse = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@hettt');
-        
+
         const kaifData = await kaifResponse.json();
         const hetData = await hetResponse.json();
-        
+
         const allPosts: MediumPost[] = [];
-        
+
         // Add Kaif's posts
         if (kaifData.items) {
           kaifData.items.slice(0, 2).forEach((item: any) => {
@@ -52,7 +52,7 @@ function Home() {
             });
           });
         }
-        
+
         // Add Het's posts
         if (hetData.items) {
           hetData.items.slice(0, 2).forEach((item: any) => {
@@ -67,7 +67,7 @@ function Home() {
             });
           });
         }
-        
+
         // Sort by date and take latest 4
         allPosts.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
         setLatestPosts(allPosts.slice(0, 4));
@@ -116,7 +116,7 @@ function Home() {
       <div className="relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
-        
+
         <div className="relative px-6 pt-14 lg:px-8">
           <div className="mx-auto max-w-4xl py-32 sm:py-48 lg:py-56">
             <div className="text-center">
@@ -124,9 +124,11 @@ function Home() {
               <div className="flex justify-center mb-8">
                 <div className="relative">
                   <div className="absolute inset-0 bg-cyan-500/20 blur-xl rounded-full" />
-                  <div className="relative bg-slate-800/50 backdrop-blur-sm border border-cyan-500/30 rounded-full p-4">
-                    <Shield className="h-12 w-12 text-cyan-400" />
-                  </div>
+                  <img
+                    src="/favicon/windows11/favicon.png"
+                    alt="logo"
+                    className="w-30 h-35"   // 👈 adjust these values
+                  />
                 </div>
               </div>
 
@@ -136,7 +138,7 @@ function Home() {
                   VulnInsights
                 </span>
               </h1>
-              
+
               <p className="mt-6 text-lg leading-8 text-slate-300 max-w-2xl mx-auto">
                 Exploring the frontiers of cybersecurity through expert insights, advanced techniques, and real-world vulnerability research.
               </p>
@@ -212,11 +214,11 @@ function Home() {
                       </Badge>
                       <span className="text-xs text-slate-500">{formatDate(post.pubDate)}</span>
                     </div>
-                    
+
                     <CardTitle className="text-xl text-white group-hover:text-cyan-400 transition-colors line-clamp-2">
                       {post.title}
                     </CardTitle>
-                    
+
                     <CardDescription className="text-slate-300 leading-relaxed line-clamp-3">
                       {post.description}
                     </CardDescription>
@@ -226,9 +228,9 @@ function Home() {
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
                       {post.categories.slice(0, 3).map((tag, tagIndex) => (
-                        <Badge 
-                          key={tagIndex} 
-                          variant="outline" 
+                        <Badge
+                          key={tagIndex}
+                          variant="outline"
                           className="text-xs border-slate-600 text-slate-400 hover:border-cyan-500/50 hover:text-cyan-400 transition-colors"
                         >
                           {tag}
@@ -242,12 +244,12 @@ function Home() {
                         <Lock className="h-3 w-3" />
                         Medium Article
                       </span>
-                      
+
                       <div className="flex gap-2">
                         <Link to={`/blogs/${createSlug(post.title)}`}>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
+                          <Button
+                            variant="ghost"
+                            size="sm"
                             className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 group/btn"
                           >
                             Read More

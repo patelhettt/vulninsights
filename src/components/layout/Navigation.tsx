@@ -33,27 +33,21 @@ export function Navigation() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-slate-900/95 backdrop-blur-xl border-b border-cyan-500/20 shadow-[0_0_25px_rgba(6,182,212,0.08)]"
           : "bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50"
-      }`}
+        }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
+          {/* Enhanced Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <div
-                className={`absolute inset-0 rounded-full transition-all duration-500 pointer-events-none ${
-                  scrolled
-                    ? "bg-gradient-to-r from-cyan-500/30 to-blue-500/30 blur-lg"
-                    : "bg-cyan-500/20 blur-md"
-                } group-hover:bg-gradient-to-r group-hover:from-cyan-500/40 group-hover:to-blue-500/40 group-hover:blur-lg`}
+              <img
+                src="/favicon/windows11/favicon.png"
+                alt="logo"
+                className="w-8 h-10"   // 👈 adjust these values
               />
-              <div className="relative bg-slate-800/50 backdrop-blur-sm border border-cyan-500/30 rounded-full p-2.5 group-hover:border-cyan-400 group-hover:scale-110 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-                <Shield className="h-6 w-6 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
-              </div>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:via-blue-400 group-hover:to-purple-500 transition-all duration-300">
@@ -74,11 +68,10 @@ export function Navigation() {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 group flex items-center space-x-2 ${
-                      isActive(item.href)
+                    className={`relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 group flex items-center space-x-2 ${isActive(item.href)
                         ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
                         : "text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 hover:shadow-md"
-                    }`}
+                      }`}
                   >
                     <IconComponent className="h-4 w-4 transition-all duration-300 group-hover:scale-110" />
                     <span>{item.name}</span>
@@ -101,9 +94,8 @@ export function Navigation() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`relative text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-all duration-300 ${
-                    isOpen ? "bg-slate-800/50" : ""
-                  }`}
+                  className={`relative text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-all duration-300 ${isOpen ? "bg-slate-800/50" : ""
+                    }`}
                 >
                   <Menu className="h-6 w-6" />
                   {isOpen && (
@@ -150,11 +142,10 @@ export function Navigation() {
                         key={item.name}
                         to={item.href}
                         onClick={() => setIsOpen(false)}
-                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                          isActive(item.href)
+                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${isActive(item.href)
                             ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
                             : "text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50"
-                        }`}
+                          }`}
                       >
                         <IconComponent className="h-5 w-5 transition-all duration-300" />
                         <span>{item.name}</span>
